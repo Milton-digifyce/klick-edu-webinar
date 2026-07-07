@@ -135,8 +135,17 @@
         .hero-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
+            grid-template-rows: auto auto;
+            column-gap: 4rem;
+            row-gap: 1.25rem;
+        }
+
+        .hero-text { grid-column: 1; grid-row: 1; }
+        .hero-cta { grid-column: 1; grid-row: 2; }
+        .hero-image {
+            grid-column: 2;
+            grid-row: 1 / span 2;
+            align-self: center;
         }
 
         .tagline {
@@ -451,7 +460,10 @@
         }
 
         @media (max-width: 768px) {
-            .hero-grid, .comparison-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+            .hero-grid, .comparison-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .hero-text { grid-column: 1; grid-row: 1; }
+            .hero-image { grid-column: 1; grid-row: 2; align-self: auto; }
+            .hero-cta { grid-column: 1; grid-row: 3; text-align: center; }
             .hero { padding: 7rem 0 3rem 0; min-height: auto; }
             .hero h1 { font-size: 2.25rem; }
             .hero p { font-size: 1rem; }
@@ -493,21 +505,23 @@
             <div class="hero-text gsap-hero">
                 <span class="tagline">LIVE 90-MINUTE MASTERCLASS</span>
                 <h1>Your MBBS Dream Doesn't End with Your NEET Rank.</h1>
-                
+
                 <div class="hook-box">
                     "Every year, thousands of deserving NEET students lose their MBBS dream—not because they aren't capable, but because they don't know all the available options."
                 </div>
-                
+
                 <p>Join our factual, transparent webinar designed for parents and aspirants. Discover the real data behind admissions and highly affordable, NMC-compliant global options.</p>
-                
-                <button class="btn btn-highlight trigger-modal">Secure Your Free Seat Now</button>
-                <p style="font-size: 0.875rem; margin-top: 1rem; color: var(--text-light);">⏳ Only 45 seats left for this weekend.</p>
             </div>
-            
+
             <div class="hero-image gsap-hero">
                 <div class="glass-card" style="height: 340px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #fce7f3, #f3e8ff, #e0f2fe);">
                     <img src="Assets/1.webp" alt="Webinar Illustration" style="max-width: 100%; max-height: 100%;">
                 </div>
+            </div>
+
+            <div class="hero-cta gsap-hero">
+                <button class="btn btn-highlight trigger-modal">Secure Your Free Seat Now</button>
+                <p style="font-size: 0.875rem; margin-top: 1rem; color: var(--text-light);">⏳ Only 45 seats left for this weekend.</p>
             </div>
         </div>
     </section>
