@@ -66,6 +66,29 @@
             box-shadow: 0 20px 25px -5px rgba(236, 72, 153, 0.4);
         }
 
+        .btn-highlight {
+            font-size: 1.15rem;
+            padding: 1.25rem 3rem;
+            animation: pulse-glow 2.2s infinite;
+        }
+
+        .btn-highlight:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 10px 20px -5px rgba(236, 72, 153, 0.45), 0 0 0 0 rgba(236, 72, 153, 0.35);
+            }
+            50% {
+                box-shadow: 0 10px 25px -5px rgba(236, 72, 153, 0.6), 0 0 0 12px rgba(236, 72, 153, 0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .btn-highlight { animation: none; }
+        }
+
         .glass-card {
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
@@ -102,8 +125,8 @@
 
         /* Hero Section */
         .hero {
-            padding: 12rem 0 8rem 0;
-            min-height: 100vh;
+            padding: 8.5rem 0 4rem 0;
+            min-height: auto;
             display: flex;
             align-items: center;
             background: radial-gradient(circle at top right, #fce7f3 0%, #f3e8ff 45%, #e0f2fe 100%);
@@ -112,7 +135,7 @@
         .hero-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            gap: 3rem;
             align-items: center;
         }
 
@@ -120,34 +143,35 @@
             display: inline-block;
             background: var(--gradient-soft);
             color: var(--accent-hover);
-            padding: 0.5rem 1rem;
+            padding: 0.4rem 0.9rem;
             border-radius: 50px;
             font-weight: 600;
-            font-size: 0.875rem;
-            margin-bottom: 1.5rem;
+            font-size: 0.8rem;
+            margin-bottom: 1.25rem;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 2.75rem;
             line-height: 1.2;
             color: var(--primary);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
             font-weight: 800;
         }
 
         .hero p {
-            font-size: 1.125rem;
+            font-size: 1rem;
             color: var(--text-light);
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             line-height: 1.6;
         }
 
         .hook-box {
             border-left: 4px solid;
             border-image: var(--gradient-main) 1;
-            padding-left: 1.5rem;
-            margin-bottom: 2rem;
+            padding-left: 1.25rem;
+            margin-bottom: 1.5rem;
             font-style: italic;
+            font-size: 0.95rem;
             color: var(--primary);
             font-weight: 500;
         }
@@ -265,9 +289,19 @@
             padding: 3rem;
             border-radius: 20px;
             width: 90%;
-            max-width: 500px;
+            max-width: 560px;
             position: relative;
             transform: scale(0.95);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 480px) {
+            .form-row { grid-template-columns: 1fr; }
         }
 
         .close-btn {
@@ -417,9 +451,25 @@
         }
 
         @media (max-width: 768px) {
-            .hero-grid, .comparison-grid { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 2.5rem; }
-            .hero { padding: 8rem 0 4rem 0; }
+            .hero-grid, .comparison-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+            .hero { padding: 7rem 0 3rem 0; min-height: auto; }
+            .hero h1 { font-size: 2.25rem; }
+            .hero p { font-size: 1rem; }
+            .tagline { font-size: 0.8rem; padding: 0.4rem 0.9rem; }
+            .hook-box { font-size: 0.95rem; padding-left: 1rem; }
+            .hero-image .glass-card { height: 260px; padding: 1.5rem; }
+            .btn-highlight {
+                display: block;
+                width: 100%;
+                text-align: center;
+                font-size: 1rem;
+                padding: 1.1rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 1.85rem; }
+            .container { padding: 0 1.25rem; }
         }
 
         @media (max-width: 600px) {
@@ -450,12 +500,12 @@
                 
                 <p>Join our factual, transparent webinar designed for parents and aspirants. Discover the real data behind admissions and highly affordable, NMC-compliant global options.</p>
                 
-                <button class="btn trigger-modal">Secure Your Free Seat Now</button>
+                <button class="btn btn-highlight trigger-modal">Secure Your Free Seat Now</button>
                 <p style="font-size: 0.875rem; margin-top: 1rem; color: var(--text-light);">⏳ Only 45 seats left for this weekend.</p>
             </div>
             
             <div class="hero-image gsap-hero">
-                <div class="glass-card" style="height: 400px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #fce7f3, #f3e8ff, #e0f2fe);">
+                <div class="glass-card" style="height: 340px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #fce7f3, #f3e8ff, #e0f2fe);">
                     <img src="Assets/1.webp" alt="Webinar Illustration" style="max-width: 100%; max-height: 100%;">
                 </div>
             </div>
@@ -670,11 +720,21 @@
             <p style="color: var(--text-light); margin-bottom: 2rem;">Enter your details to receive the webinar link via WhatsApp.</p>
             
             <form id="leadForm">
-                <div class="form-group">
-                    <input type="text" placeholder="Student or Parent Name" required>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" placeholder="Student or Parent Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" placeholder="WhatsApp Number" required>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <input type="tel" placeholder="WhatsApp Number" required>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="email" placeholder="Email Address" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="City" required>
+                    </div>
                 </div>
                 <div class="form-group">
                     <input type="text" placeholder="Expected/Actual NEET Score">
