@@ -720,28 +720,28 @@
             <p style="color: var(--text-light); margin-bottom: 2rem;">Enter your details to receive the webinar link via WhatsApp.</p>
             
             <form id="leadForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <input type="text" placeholder="Student or Parent Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" placeholder="WhatsApp Number" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <input type="email" placeholder="Email Address" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" placeholder="City" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="text" placeholder="Expected/Actual NEET Score">
-                </div>
-                <button type="submit" class="btn" style="width: 100%;">Confirm My Registration</button>
-                <p style="font-size: 0.75rem; text-align: center; margin-top: 1rem; color: var(--text-light);">We respect your privacy. No spam.</p>
-            </form>
+    <div class="form-row">
+        <div class="form-group">
+            <input type="text" id="leadName" placeholder="Student or Parent Name" required>
+        </div>
+        <div class="form-group">
+            <input type="tel" id="leadPhone" placeholder="WhatsApp Number" required>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group">
+            <input type="email" id="leadEmail" placeholder="Email Address" required>
+        </div>
+        <div class="form-group">
+            <input type="text" id="leadCity" placeholder="City" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="text" id="leadScore" placeholder="Expected/Actual NEET Score">
+    </div>
+    <button type="submit" class="btn" style="width: 100%;">Confirm My Registration</button>
+    <p style="font-size: 0.75rem; text-align: center; margin-top: 1rem; color: var(--text-light);">We respect your privacy. No spam.</p>
+</form>
         </div>
     </div>
 
@@ -810,17 +810,62 @@
             if(e.target === modal) closeModalFunc();
         });
 
+
+        // Form Submit & App Script Integration
+document.getElementById('leadForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // PASTE YOUR GOOGLE APPS SCRIPT URL HERE
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbz-2WrRH2GRuTakrrgvUzad61vrlptE1BKASKxVmOWpvHSfbDNt1alRP3BHsufBBTi-MQ/exec';
+    
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerText;
+    
+    // Change button text to show loading state
+    submitBtn.innerText = 'Submitting...';
+    submitBtn.disabled = true;
+
+    // Gather form data based on the IDs we added
+    const formData = {
+        name: document.getElementById('leadName').value,
+        whatsapp: document.getElementById('leadPhone').value,
+        email: document.getElementById('leadEmail').value,
+        city: document.getElementById('leadCity').value,
+        neetScore: document.getElementById('leadScore').value
+    };
+
+    try {
+        await fetch(scriptURL, {
+            method: 'POST',
+            mode: 'no-cors', // Important: bypasses CORS blocks for Google Scripts
+            headers: {
+                'Content-Type': 'text/plain;charset=utf-8', // avoids no-cors header restrictions; GAS still parses the raw JSON body
+            },
+            body: JSON.stringify(formData)
+        });
+
+        // Success: show it on the button itself, then close
+        submitBtn.innerText = 'Submitted ✓';
+
+        setTimeout(() => {
+            e.target.reset();
+            closeModalFunc();
+            submitBtn.innerText = originalText;
+            submitBtn.disabled = false;
+        }, 1500);
+
+    } catch (error) {
+        console.error('Error!', error.message);
+        submitBtn.innerText = 'Failed, Try Again';
+        submitBtn.disabled = false;
+        setTimeout(() => { submitBtn.innerText = originalText; }, 2500);
+    }
+});
+
         function closeModalFunc() {
             gsap.to(modalContent, { scale: 0.95, duration: 0.3 });
             gsap.to(modal, { opacity: 0, duration: 0.3, onComplete: () => modal.style.display = 'none' });
         }
-
-        // Form Submit Prevent Default
-        document.getElementById('leadForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert("Registration collected! (Connect this to your backend/Shopify/CRM)");
-            closeModalFunc();
-        });
 
         // Countdown Timer Logic
         // Set to next Saturday at 4 PM
