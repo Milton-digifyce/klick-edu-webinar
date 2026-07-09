@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Klick Edu | NEET Success Webinar</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="Assets/logo1.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -246,6 +247,20 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             opacity: 0.8;
+        }
+
+        .schedule-time-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            color: #1f2937;
+            font-weight: 800;
+            font-size: 1.1rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 999px;
+            margin-top: 1rem;
+            box-shadow: 0 8px 20px rgba(249, 115, 22, 0.35);
         }
 
         /* FAQ Accordion */
@@ -586,6 +601,9 @@
             <div class="section-header">
                 <h2>Next Live Session Starts In</h2>
                 <p>We host sessions every Saturday & Sunday. Pick a slot that fits your schedule.</p>
+                <div style="text-align: center;">
+                    <span class="schedule-time-badge"><i class="fa-solid fa-clock"></i> Sat & Sun, 5:00 PM - 6:00 PM</span>
+                </div>
             </div>
 
             <div class="timer-container">
@@ -882,11 +900,11 @@ document.getElementById('leadForm').addEventListener('submit', async (e) => {
         }
 
         // Countdown Timer Logic
-        // Set to next Saturday at 4 PM
+        // Set to next Saturday at 5 PM
         function getNextSaturday() {
             let d = new Date();
             d.setDate(d.getDate() + (6 - d.getDay() + 7) % 7);
-            d.setHours(16, 0, 0, 0); // 4 PM
+            d.setHours(17, 0, 0, 0); // 5 PM
             return d.getTime();
         }
 
